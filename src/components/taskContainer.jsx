@@ -5,13 +5,6 @@ import { TaskList } from "./taskList/taskList";
 import { useState } from "react";
 
 
-// Type of todo item
-// export type TodoItem = {
-//   id: number;
-//   label: string;
-//   done: boolean;
-// };
-
 // Ce composant est utilisé pour afficher l'intégralité de la fonctionalité de Tache.
 export function TaskContainer() {
   const [todoItems, setTodoItems] = useState([
