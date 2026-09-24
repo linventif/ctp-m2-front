@@ -23,96 +23,102 @@ MVC
 
 **Présence**:
 
-x
+Partiellement : le state `todoItems` de `TaskContainer` joue le role de modèle, les fonctions `addTodoItem` / `removeTodoItem` / `toggleTodoItem` celui de controleur et les composants `TaskList`, `TaskItem`... celui de vue
+
+Il est pas totalement implémenté car de la logique `model` / `controleur` sont mélangés dans le même composant
 
 **Compatibilité**:
 
-x
+On peut le compléter en sortant la logique dans sont propre fichier et en gardant juste `TaskContainer` comme simple vue
 
 **Incompatibilité**:
 
-x
+Non
 
 ## Singleton
 
 **Présence**:
 
-x
+Non
 
 **Compatibilité**:
 
-x
+Oui, on pourrais l'ajouté via le system du local storage pour ajouté de la persistance a l'application, car actuellement tout est en ram
 
 **Incompatibilité**:
 
-x
+Non
 
 ## Strategy
 
 **Présence**:
 
-x
+Non
 
 **Compatibilité**:
 
-x
+Oui, on peut l'ajouter pour filtrer la liste des `todo items`, avec un potentiel (`all` / `todo` / `done`) en passant à `TaskList` une fonction de filtre interchangeable
 
 **Incompatibilité**:
 
-x
+Non
 
 ## Builder
 
 **Présence**:
 
-x
+Non
 
 **Compatibilité**:
 
-x
+Non
 
 **Incompatibilité**:
 
-x
+Il n'est pas utile car une tâche n'a que trois attributs (`id`, `label`, `done`), un objet simple suffit
 
 ## Command
 
 **Présence**:
 
-x
+Partiellement : chaque action (`ajouter`, `supprimer`, `terminer`) est une fonction transmise aux composants enfants qui l'exécutent sans connaître son implémentation
+
+Il est incomplet car les actions ne sont pas des objet a part entière, donc impossible de les historiser ou de les annuler
 
 **Compatibilité**:
 
-x
+On peut le compléter en transformant chaque action en objet avec une méthode `execute` et une méthode `undo`, et en gardant un historique des actions dans une queue
 
 **Incompatibilité**:
 
-x
+Non
 
 ## Observer
 
 **Présence**:
 
-x
+Oui: quand `setTodoItems` modifie le state, tous les composants qui en dépendent (`TaskList`, `Footer`) sont automatiquement re-render
+
+Et les event de composant: `onChange` / `onSubmit` / `onClick` sont aussi des observateurs d'événements du DOM
 
 **Compatibilité**:
 
-x
+Non
 
 **Incompatibilité**:
 
-x
+Non
 
 ## State
 
 **Présence**:
 
-x
+Partiellement : `TaskItem` change son style et ses actions (`terminer` / `restaurer`) via l'état de `done`, ce qui est incomplet car il n'y a pas d'objet d'état dédié et que le test de l'état est actuellement une simple ternaire
 
 **Compatibilité**:
 
-x
+On pourrais remplacé `done` par une enum de `status` (`todo`, `doing`, `done`) associé à un objet qui définit le style & actions de chaque états
 
 **Incompatibilité**:
 
-x
+Non
