@@ -14,12 +14,37 @@ export function TaskContainer() {
 		{ id: 4, label: 'Publier mon projet sur GitHub', done: true },
   ]);
 
+  function removeTodoItem(id) {
+		setTodoItems((prevItems) => prevItems.filter((item) => item.id !== id));
+  }
+
+  function addTodoItem(label) {
+		const newTask = {
+			id: todoItems.length + 1,
+			label: label,
+			done: false,
+		};
+		setTodoItems([...todoItems, newTask]);
+  }
+
+  function toggleTodoItem(id) {
+		setTodoItems((prevItems) =>
+			prevItems.map((item) =>
+				item.id === id ? { ...item, done: !item.done } : item,
+			),
+		);
+  }
+
   return (
-    <main>
-      <Header />
-      <TaskInput todoItems={todoItems} setTodoItems={setTodoItems} />
-      <TaskList todoItems={todoItems} setTodoItems={setTodoItems} />
-      <Footer todoItems={todoItems} />
-    </main>
+		<main>
+			<Header />
+			<TaskInput addTodoItem={addTodoItem} />
+			<TaskList
+				todoItems={todoItems}
+				removeTodoItem={removeTodoItem}
+				toggleTodoItem={toggleTodoItem}
+			/>
+			<Footer todoItems={todoItems} />
+		</main>
   );
 }
