@@ -9,3 +9,7 @@ bun install
 ```bash
 bun dev
 ```
+
+## Public URL
+
+[m2-front-ctp.linv.dev](https://m2-front-ctp.linv.dev)
